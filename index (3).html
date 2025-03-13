@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loading...</title>
+    <style>
+        body {
+            display: none; /* Hide the body initially */
+        }
+        .calculator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+        .calculator input {
+            width: 200px;
+            padding: 10px;
+            margin: 5px;
+            font-size: 18px;
+        }
+        .calculator button {
+            width: 50px;
+            padding: 10px;
+            margin: 5px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator" id="calculator">
+        <input type="text" id="result" disabled>
+        <div>
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button onclick="appendOperator('+')">+</button>
+        </div>
+        <div>
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button onclick="appendOperator('-')">-</button>
+        </div>
+        <div>
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button onclick="appendOperator('*')">*</button>
+        </div>
+        <div>
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="clearResult()">C</button>
+            <button onclick="calculateResult()">=</button>
+            <button onclick="appendOperator('/')">/</button>
+        </div>
+    </div>
+
+    <script>
+        function appendNumber(number) {
+            let resultField = document.getElementById('result');
+            resultField.value += number;
+        }
+
+        function appendOperator(operator) {
+            let resultField = document.getElementById('result');
+            resultField.value += ' ' + operator + ' ';
+        }
+
+        function clearResult() {
+            let resultField = document.getElementById('result');
+            resultField.value = '';
+        }
+
+        function calculateResult() {
+            let resultField = document.getElementById('result');
+            try {
+                resultField.value = eval(resultField.value);
+            } catch (error) {
+                resultField.value = 'Error';
+            }
+        }
+
+        function loadCalculator() {
+            document.body.style.display = "block";
+            document.title = "Calculator";
+        }
+
+        // Wait for the document to be fully loaded
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initial page load
+            setTimeout(function() {
+                // Cloak by setting location to about:blank
+                window.location.replace("about:blank");
+
+                // Load the calculator after the about:blank cloaking
+                setTimeout(loadCalculator, 1000); // Ensure this delay is after the cloaking delay
+            }, 1000); // Short delay before cloaking
+        });
+    </script>
+</body>
+</html>
